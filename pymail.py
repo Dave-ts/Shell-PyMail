@@ -44,7 +44,7 @@ from getpass import getpass
 
 VERSION = "0.0.1"
 PERMITTED_USER_ID = 0
-LOG_LEVEL = "DEBUG"
+LOG_LEVEL = "WARNING"
 
 # Comment out second logging line in order to log to file., uncomment first in order to display logging messages
 # to screen, rather than saving them to a file.
