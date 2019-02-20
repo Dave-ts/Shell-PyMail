@@ -24,7 +24,7 @@ After following the Install instructions setup takes one more step.
 
 **NOTE**: Install should **NOT** be run after this command. If you do run install after running this command then you should re-run the setup, or manually move the props.json file to the same `/opt/shell_pymail` directory after running install
 
-`# pymail setup server port login from-address`
+`# pymail setup server port login from-address email_to_for_test_mail`
 
 ## Use
 
