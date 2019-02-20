@@ -1,0 +1,4 @@
+.idea/
+__pycache__/
+shell-pymail.log
+props.json
