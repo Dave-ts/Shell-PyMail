@@ -381,7 +381,7 @@ if __name__ == "__main__":
     # could cause huge problems. Restricting the script to root seemed like a logical solution. The UID can be
     # changed in the top of the file by changing the PERMITTED_USER_ID value. If the user wants to create a specific
     # user to handle this script as well as logs, that is easily doable.
-    if getuid() is not PERMITTED_USER_ID:
+    if getuid() != PERMITTED_USER_ID:
         print("Shell-PyMail requires root privileges.")
         exit(1)
 
