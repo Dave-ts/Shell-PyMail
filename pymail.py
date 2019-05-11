@@ -42,7 +42,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from getpass import getpass
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 PERMITTED_USER_ID = 0
 LOG_LEVEL = "WARNING"
 

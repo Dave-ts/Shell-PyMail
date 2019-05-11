@@ -1,6 +1,6 @@
 # Shell-PyMail
 
-Shell-PyMail, henceforth called PyMail, is a quick and dirty way to send emails from a linux command line without the need to install applications like postfix or deal with the old school sendmail. I find it ideal for use in containers where the idea is to keep them light, and access to a local mail daemon is unnecessary (beneficial for private hosted VM's and private hosted containers where the isp blocks some outgoing mail ports, specifically server to server access). PyMail does not run as a service and consequently consumes no RAM or CPU time at all when it is not in use.
+Shell-PyMail, henceforth called PyMail, is a quick and dirty way to send emails from a Linux command line without the need to install applications like postfix or deal with the old school sendmail. I find it ideal for use in containers where the idea is to keep them light, and access to a local mail daemon is unnecessary (beneficial for private hosted VM's and private hosted containers where the isp blocks some outgoing mail ports, specifically server to server access). PyMail does not run as a service and consequently consumes no RAM or CPU time at all when it is not in use.
 
 PyMail is not intended to be a monitor for a system in any way but was designed with the idea that scripts which would be doing monitoring or other work could easily issue a single line command to send an email containing log information or reports about various activities.
 
@@ -12,9 +12,9 @@ PyMail is not intended to be a monitor for a system in any way but was designed 
 
 ## Install
 
-PyMail has a built in install command that should function on most linux systems. The install location will be in `/opt/shell_pymail` by way of simply copying the script to that location. Symbolic links will be created to `/usr/local/bin/pymail.sh` and `/usr/local/bin/pymail` as a matter of convenience.
+PyMail has a built in install command that should function on most Linux systems. The install location will be in `/opt/shell_pymail` by way of simply copying the script to that location. Symbolic links will be created to `/usr/local/bin/pymail.sh` and `/usr/local/bin/pymail` as a matter of convenience.
 
-This non-conventional install method is more a tool for myself and the way I use the scrip than anything. The install should not be used if you are intending to import shell-pymail as a module.
+This non-conventional install method is more a tool for myself and the way I use the script than anything. The install should not be used if you are intending to import shell-pymail as a module.
 
 `# /path/to/script/pymail.py install` 
 
