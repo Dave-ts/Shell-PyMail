@@ -14,7 +14,7 @@ PyMail is not intended to be a monitor for a system in any way but was designed 
 
 PyMail has a built in install command that should function on most Linux systems. The install location will be in `/opt/shell_pymail` by way of simply copying the script to that location. Symbolic links will be created to `/usr/local/bin/pymail.sh` and `/usr/local/bin/pymail` as a matter of convenience.
 
-This non-conventional install method is more a tool for myself and the way I use the script than anything. The install should not be used if you are intending to import shell-pymail as a module.
+This non-conventional install method is more a tool for myself and the way I use the script than anything. Installing this way allows the script to be used in environments where pip and/or git are not installed. The install should not be used if you are intending to import shell-pymail as a module.
 
 `# /path/to/script/pymail.py install` 
 
@@ -25,6 +25,12 @@ After following the Install instructions setup takes one more step.
 **NOTE**: Install should **NOT** be run after this command. If you do run install after running this command then you should re-run the setup, or manually move the props.json file to the same `/opt/shell_pymail` directory after running install
 
 `# pymail setup server port login from-address email_to_for_test_mail`
+
+- **server**: ip or address to mail server. Ex: mail.google.com OR 216.58.214.197
+- **port**: port that the application should connect to on the mail server. (Ex: 587)
+- **login**: login name to authenticate - usually an email address. Ex: user@gmail.com
+- **from-address**: The email address that should be used in the "from" field in the email.
+- **email_to_for_test_mail**: The email address to send a test email to when the setup is complete.
 
 ## Use
 
