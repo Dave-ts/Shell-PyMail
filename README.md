@@ -12,7 +12,9 @@ PyMail is not intended to be a monitor for a system in any way but was designed 
 
 ## Install
 
-PyMail has a built in install command that should function on most Linux systems. The install location will be in `/opt/shell_pymail` by way of simply copying the script to that location. Symbolic links will be created to `/usr/local/bin/pymail.sh` and `/usr/local/bin/pymail` as a matter of convenience.
+PyMail has a builtin install command that should function on most Linux systems. The application will be installed to `/opt/shell_pymail` by way of simply copying the script to that location. Symbolic links will be created at `/usr/local/bin/pymail.sh` and `/usr/local/bin/pymail` as a matter of convenience.
+
+After running the install command you should change the ownership of all installed files to the user you wish to allow access to send email. `# chown -R <approved_user>:<approved_group> /opt/shell_pymail`
 
 This non-conventional install method is more a tool for myself and the way I use the script than anything. Installing this way allows the script to be used in environments where pip and/or git are not installed. The install should not be used if you are intending to import shell-pymail as a module.
 

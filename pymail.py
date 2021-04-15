@@ -42,7 +42,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from getpass import getpass
 
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 PERMITTED_USER_ID = 0
 LOG_LEVEL = "WARNING"
 
@@ -50,8 +50,13 @@ LOG_LEVEL = "WARNING"
 # to screen, rather than saving them to a file.
 #
 # NOTE: Only one logging.basicConfig line should be uncommented.
-# logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
-logging.basicConfig(filename="shell-pymail.log", format='%(asctime)s:%(levelname)s:%(message)s', level=LOG_LEVEL)
+try:
+    # logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s', level=logging.DEBUG)
+    logging.basicConfig(filename="shell-pymail.log", format='%(asctime)s:%(levelname)s:%(message)s', level=LOG_LEVEL)
+except PermissionError as e:
+    print(e)
+    print("Verify the user that is running the script has permissions to write to the log file. or simply "
+          "delete the log file and run the script again.")
 logger = logging.getLogger(__name__)
 
 
@@ -217,6 +222,7 @@ class PyMailDAO(object):
         p = Props()
         if not path.isfile(prop_file):
             logger.critical("Setup is not completed props.json file not found.")
+            print("Setup is not completed props.json file not found.")
             raise FileNotFoundError("The property file does not exist. Likely "
                                     "that setup was not completed correctly.\n"
                                     "run \"./pymail.py setup --help")
@@ -383,6 +389,7 @@ if __name__ == "__main__":
     # user to handle this script as well as logs, that is easily doable.
     if getuid() != PERMITTED_USER_ID:
         print("Shell-PyMail requires root privileges.")
+        logger.critical("Shell-PyMail requires root privileges.")
         exit(1)
 
     # ------------------------------------------------------------------------------------------------------------
@@ -425,37 +432,40 @@ if __name__ == "__main__":
     #   Code to process command line entries by the user
     #
     # ------------------------------------------------------------------------------------------------------------
-    parsed_obj = parser.parse_args()
+    try:
+        parsed_obj = parser.parse_args()
 
-    if parsed_obj.command == "install":
-        if not PyMail.install():
-            print("Install failed, check log for details.")
-        else:
-            print("Application setup successfully.\n"
-                  "Run: 'sudo pymail setup --help' for details on setting up the application for initial use.")
+        if parsed_obj.command == "install":
+            if not PyMail.install():
+                print("Install failed, check log for details.")
+            else:
+                print("Application setup successfully.\n"
+                      "Run: 'sudo pymail setup --help' for details on setting up the application for initial use.")
 
-    elif parsed_obj.command == "setup":
-        app_p = Props()
-        app_p.mail_server = parsed_obj.server
-        app_p.server_port = parsed_obj.port
-        app_p.login_name = parsed_obj.login
-        app_p.default_from_email = parsed_obj.from_address
-        email = EMail()
-        email.to_email_addresses = parsed_obj.test_to_email
-        email.from_email_address = parsed_obj.from_address
-        email.subject = "Test email sent by Shell-PyMail"
-        email.email_body = "Script setup has been completed successfully.\n\n" \
-                           "If you've received this email, the script is setup and working correctly."
-        if PyMail.setup_app(app_p, email):
-            print("Setup was successful.")
-        else:
-            print("Setup failed, check the connection and login information for the email server.")
+        elif parsed_obj.command == "setup":
+            app_p = Props()
+            app_p.mail_server = parsed_obj.server
+            app_p.server_port = parsed_obj.port
+            app_p.login_name = parsed_obj.login
+            app_p.default_from_email = parsed_obj.from_address
+            email = EMail()
+            email.to_email_addresses = parsed_obj.test_to_email
+            email.from_email_address = parsed_obj.from_address
+            email.subject = "Test email sent by Shell-PyMail"
+            email.email_body = "Script setup has been completed successfully.\n\n" \
+                               "If you've received this email, the script is setup and working correctly."
+            if PyMail.setup_app(app_p, email):
+                print("Setup was successful.")
+            else:
+                print("Setup failed, check the connection and login information for the email server.")
 
-    elif parsed_obj.command == "send-mail":
-        email = EMail()
-        email.to_email_addresses = parsed_obj.mail_to
-        email.subject = parsed_obj.subject
-        email.email_body = parsed_obj.body
-        email.attachment_path = parsed_obj.file
+        elif parsed_obj.command == "send-mail":
+            email = EMail()
+            email.to_email_addresses = parsed_obj.mail_to
+            email.subject = parsed_obj.subject
+            email.email_body = parsed_obj.body
+            email.attachment_path = parsed_obj.file
 
-        PyMail.send_mail(email)
+            PyMail.send_mail(email)
+    except Exception as e:
+        logger.critical(e)
